@@ -17,35 +17,16 @@ type PatientProps = {
 }
 export default function ListPatients() {
     const [patients, setPatients] = React.useState([]);
-    // const [patientAfter, setPatientAfter] = React.useState([]);
 
-    // const dateOutput = (birthDate: Date) => {
-    //     // const date = new Date(birthDate);
-    //     // const year = date.getFullYear();
-    //     // const month = date.getMonth() + 1;
-    //     // const day = date.getDate();
-    //     // return `${day}/${month}/${year}`;
-    //     const date = new Date(birthDate);
-    //     const formattedDate = date.toLocaleDateString("vi-VN");
-    //     return formattedDate;
-    // }
     useEffect(() => {
         const fetchdata = async () => {
         const res = await GetPatients();
         setPatients(res);
     }
     fetchdata();
-    // for(let i = 0; i < patients.length; i++) {
-    //     patients[i].patientBirthDate = dateOutput(patients[i].patientBirthDate);
-    // }
-    // for(let i = 0; i < patients.length; i++) {
-    //     console.log("type of dnsnds: ", patients[i].patientBirthDate);
-    // }
-    // console.log("type of dnsnds: ", typeof(patients[0].patientBirthDate));
+
     }, [])
-    // for(let i = 0; i < patients.length; i++) {
-    //     console.log("type of dnsnds: ", patients[i].patientBirthDate);
-    // }
+
   return (
      <div className="container mx-auto  bg-gray-900 text-white">
                     <div className="flex p-4 justify-between items-center mb-4">
