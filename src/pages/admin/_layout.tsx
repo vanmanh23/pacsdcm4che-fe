@@ -13,7 +13,6 @@ export default function Component() {
   const handleHidenNavbar = () => {
     setHidenNavbar(!hidenNavbar);
   }
-  console.log("hidenNavbar==========: ",hidenNavbar);
   return (
     <>
     <div className='relative w-screen min-h-screen flex flex-row'>
