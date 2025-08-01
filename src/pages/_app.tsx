@@ -1,21 +1,15 @@
-// import './App.css'
-import { Outlet } from "react-router-dom"
-import Header from "../components/Header"
-// import ListPatients from './components/ListPatients'
+import { Outlet } from "react-router-dom";
+import { Provider } from 'react-redux'
+import {store} from "../store/store";
 
 function App() {
-  
   return (
-    <div className='relative min-w-screen min-h-screen '>
-      <div className="absolute bg-cover h-full w-full blur-sm" style={{backgroundImage: 'url(/src/assets/image_bg.jpg)'}}>
-    </div>
-    <div className='relative w-screen min-h-screen z-10'>
-      <Header />
+    <Provider store={store}>
+    <div className="max-w-screen min-h-screen box-border">
       <Outlet />
     </div>
-    </div>
-    
-  )
+    </Provider>
+  );
 }
 
-export default App
+export default App;

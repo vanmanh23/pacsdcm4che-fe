@@ -1,6 +1,8 @@
 
 export default function Component() {
   return (
-    <div>Component login</div>
+    <div>
+        <p>Patients</p>
+    </div>
   )
 }

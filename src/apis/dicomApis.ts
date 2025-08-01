@@ -1,5 +1,10 @@
 import axios from "axios";
-import type { InstanceProps, PatientProps, SeriesProps, StudyProps } from "../types/types";
+import type {
+  InstanceProps,
+  PatientProps,
+  SeriesProps,
+  StudyProps,
+} from "../types/types";
 
 const url = "http://localhost:8081/api/dicom";
 
@@ -32,60 +37,60 @@ export const GetPatients = async (): Promise<PatientProps[]> => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
   //
-//   const Studyres = await axios
-//     .get(`${url}/studies/tags`)
-//     .then((res) => res.data)
-//     .catch((err) => console.log(err));
+  //   const Studyres = await axios
+  //     .get(`${url}/studies/tags`)
+  //     .then((res) => res.data)
+  //     .catch((err) => console.log(err));
 
-//   Studyres.forEach(async (study: StudyProps) => {
-//     const Seriesres = await axios
-//       .get(`${url}/studies/${study.studyInstanceUID}/series/tags`)
-//       .then((res) => res.data)
-//       .catch((err) => console.log(err));
-//       study.series = Seriesres.filter(
-//         (series: SeriesProps) => series.studyInstanceUID === study.studyInstanceUID
-//       );
-      
-//     for(const series of Seriesres) {
-//         const Instanceres: InstanceProps[] = await axios
-//         .get(`${url}/studies/${series.studyInstanceUID}/series/${series.seriesInstanceUID}/instances/tags`)
-//         .then((res) => res.data)
-//         .catch((err) => {
-//           console.error("Lỗi lấy instances", err);
-//           return [];
-//         });
-//         study.series.instances = Instanceres;
-//     }
-//   });
+  //   Studyres.forEach(async (study: StudyProps) => {
+  //     const Seriesres = await axios
+  //       .get(`${url}/studies/${study.studyInstanceUID}/series/tags`)
+  //       .then((res) => res.data)
+  //       .catch((err) => console.log(err));
+  //       study.series = Seriesres.filter(
+  //         (series: SeriesProps) => series.studyInstanceUID === study.studyInstanceUID
+  //       );
 
-//   for(const dd of Studyres.series) {
-//       console.log("series00000000000000", dd);
-//   }
+  //     for(const series of Seriesres) {
+  //         const Instanceres: InstanceProps[] = await axios
+  //         .get(`${url}/studies/${series.studyInstanceUID}/series/${series.seriesInstanceUID}/instances/tags`)
+  //         .then((res) => res.data)
+  //         .catch((err) => {
+  //           console.error("Lỗi lấy instances", err);
+  //           return [];
+  //         });
+  //         study.series.instances = Instanceres;
+  //     }
+  //   });
 
-//     Patientres.forEach((patient: PatientProps) => {
-//     patient.studies = Studyres.filter(
-//       (study: StudyProps) => study.patientID === patient.patientID
-//     );
-//   });
-//   console.log("Patientres=========== ",Patientres[1].studies[0]);
-//   return Patientres;
-//   // const Seriesres = await axios.get(`${url}/studies/${studyInstanceUID}/series/tags`)
-//   // .then(res => res.data)
-//   // .catch(err => console.log(err));
+  //   for(const dd of Studyres.series) {
+  //       console.log("series00000000000000", dd);
+  //   }
 
-//   // const Instanceres = await axios.get(`${url}/studies/${studyInstanceUID}/series/${seriesInstanceUID}/instances/tags`)
-//   // .then(res => res.data)
-//   // .catch(err => console.log(err));
+  //     Patientres.forEach((patient: PatientProps) => {
+  //     patient.studies = Studyres.filter(
+  //       (study: StudyProps) => study.patientID === patient.patientID
+  //     );
+  //   });
+  //   console.log("Patientres=========== ",Patientres[1].studies[0]);
+  //   return Patientres;
+  //   // const Seriesres = await axios.get(`${url}/studies/${studyInstanceUID}/series/tags`)
+  //   // .then(res => res.data)
+  //   // .catch(err => console.log(err));
 
-//   // Seriesres.forEach(series=> {
-//   //     series.instances = Instanceres.filter(instance => instance.SeriesInstanceUID === series.SeriesInstanceUID)
-//   // })
+  //   // const Instanceres = await axios.get(`${url}/studies/${studyInstanceUID}/series/${seriesInstanceUID}/instances/tags`)
+  //   // .then(res => res.data)
+  //   // .catch(err => console.log(err));
 
-//   // Studyres.forEach(study=> {
-//   //     study.series = Seriesres.filter(series => series.StudyInstanceUID === study.StudyInstanceUID)
-//   // })
+  //   // Seriesres.forEach(series=> {
+  //   //     series.instances = Instanceres.filter(instance => instance.SeriesInstanceUID === series.SeriesInstanceUID)
+  //   // })
 
-// };
+  //   // Studyres.forEach(study=> {
+  //   //     study.series = Seriesres.filter(series => series.StudyInstanceUID === study.StudyInstanceUID)
+  //   // })
+
+  // };
   const Studyres: StudyProps[] = await axios
     .get(`${url}/studies/tags`)
     .then((res) => res.data)
@@ -108,7 +113,9 @@ export const GetPatients = async (): Promise<PatientProps[]> => {
     for (const series of Seriesres) {
       // Lấy instances theo từng series
       const Instanceres: InstanceProps[] = await axios
-        .get(`${url}/studies/${series.studyInstanceUID}/series/${series.seriesInstanceUID}/instances/tags`)
+        .get(
+          `${url}/studies/${series.studyInstanceUID}/series/${series.seriesInstanceUID}/instances/tags`
+        )
         .then((res) => res.data)
         .catch((err) => {
           console.error("Lỗi lấy instances", err);
@@ -131,4 +138,25 @@ export const GetPatients = async (): Promise<PatientProps[]> => {
   }
 
   return Patientres;
+};
+export const getStudyCount = async () => {
+  const res = await axios
+    .get(`${url}/studies/count`)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res.count;
+};
+export const getStudySize = async () => {
+  const res = await axios
+    .get(`${url}/studies/size`)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res.size;
+};
+export const getStudies = async () => {
+  const res = await axios
+    .get(`${url}/studies/tags`)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+    return res;
 };
