@@ -4,6 +4,7 @@ import MoreFunctions from "./_components/MoreFunctions";
 import StudyTable from "./_components/StudyTable";
 import { columns } from "./_components/columns";
 import {
+  getAllDiagnoses,
   getStudies,
   getStudyCount,
   getStudySize,
@@ -13,6 +14,8 @@ import { GetUserByUsername, GetUsernameFromJWT } from "../../../apis/authApis";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../store/store";
 import { setRoles } from "../../../features/userRoles";
+import { mergeStudiesDiagnoseData } from "../../../utils/mergeStudiesDiagnoseData";
+import type { StudyProps } from "../../../types/types";
 
 const formSearchItems = [
   {
@@ -44,7 +47,7 @@ export default function Component() {
   );
   const [countValue, setCountValue] = useState(0);
   const [sizeValue, setSizeValue] = useState(0);
-  const [studiesData, setStudiesData] = useState([]);
+  const [studiesData, setStudiesData] = useState<StudyProps[]>([]);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -58,19 +61,23 @@ export default function Component() {
   useEffect(() => {
     const fetchInfo = async () => {
       try {
-        const [count, size, studies] = await Promise.all([
+        const [count, size, studies, diagnoses] = await Promise.all([
           getStudyCount(),
           getStudySize(),
           getStudies(),
+          getAllDiagnoses(),
         ]);
         setCountValue(count);
         setSizeValue(size);
-        setStudiesData(studies);
+        setStudiesData(mergeStudiesDiagnoseData(studies, diagnoses));
+        // setStudiesData(studies);
+        // setDiagnosesData(diagnoses);
       } catch (error) {
         console.error("Error fetching data", error);
       }
     };
     fetchInfo();
+
   }, []);
   useEffect(() => {
     const getUserFromJWT = async (jwt: string) => {
@@ -97,7 +104,7 @@ export default function Component() {
   return (
     <div className="h-full mx-6 space-y-4">
       <MoreFunctions count={countValue} size={sizeValue} />
-      <div className="w-full flex flex-row  justify-between">
+      <div className="w-full flex md:flex-row flex-col gap-2 justify-between">
         <div className="w-full flex flex-row flex-wrap gap-4">
           {formSearchItems.map((item, index) => (
             <FormSearch
@@ -112,7 +119,7 @@ export default function Component() {
         <div className="flex flex-col items-end justify-end">
           <button
             onClick={handleSearch}
-            className="bg-bg-secondary font-semibold text-white py-2 px-3 w-28 rounded-md hover:bg-bg-secondary/70"
+            className="bg-bg-secondary font-semibold text-white md:py-2 md:px-3 p-1 w-28 rounded-md hover:bg-bg-secondary/70"
           >
             Submit
           </button>

@@ -15,25 +15,33 @@ import {
   PopoverTrigger,
 } from "../../../components/ui/popover";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../../store/store";
 import { GetUserByUsername, GetUsernameFromJWT } from "../../../apis/authApis";
 import type { NavbarProps } from "../_layout";
+import { toast } from "sonner";
+import { setRoles } from "../../../features/userRoles";
 
 export default function Header({handleOpenNavbar}: NavbarProps) {
   const navigate = useNavigate();
   const [openDropdown, setOpenDropdown] = useState(false);
   const [userInfo, setUserInfo] = useState<any>({});
+  const dispatch = useDispatch<AppDispatch>();
   const userRoles = useSelector((state: RootState) => state.roles.value);
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
     navigate("/");
+    toast.success("Logout successfully!", { duration: 2000, position: "bottom-right",richColors: true }, );
   };
+  
   useEffect(() => {
       const getUserFromJWT = async (jwt: string) => {
-        const username = await GetUsernameFromJWT(jwt);
-        const userInfo = await GetUserByUsername(username);
-        setUserInfo(userInfo);
+       const username = await GetUsernameFromJWT(jwt);
+       if(username) {
+        const userInf = await GetUserByUsername(username);
+        setUserInfo(userInf);
+        dispatch(setRoles(userInf.role));
+       }
       };
       const jwt = localStorage.getItem("token");
       if (!jwt) {
@@ -91,16 +99,18 @@ export default function Header({handleOpenNavbar}: NavbarProps) {
 
                   <div className="flex flex-row items-center gap-2 p-2 hover:bg-slate-100 rounded-md outline-none text-menu-items/70">
                     <Users />
-                    <p>About us</p>
+                    <Link to="/aboutus">About us</Link>
                   </div>
                   <div className="flex flex-row items-center gap-2 p-2 hover:bg-slate-100 rounded-md outline-none text-menu-items/70">
                     <Settings />
                     <p>Setting</p>
+                    <Link to="/settings">Setting</Link>
                   </div>
                   <hr className="border-t border-gray-100 my-4" />
                   <div className="flex flex-row items-center gap-2 p-2 hover:bg-slate-100 rounded-md outline-none text-secondary">
                     <Info />
                     <p>Help</p>
+                    <Link to="/help">Help</Link>
                   </div>
                   <div
                     onClick={handleLogout}

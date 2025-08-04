@@ -23,6 +23,7 @@ export type StudyProps = {
   sex: string;
   patientBirthDate: Date;
   series: SeriesProps[]
+  diagnose?: DiagnoseProps
 }
 
 export type SeriesProps = {
@@ -46,4 +47,9 @@ export type InstanceProps = {
   pixelData: string;
   instanceCreationDate: Date;
   instanceCreationTime: Date;
+}
+export type DiagnoseProps = {
+  id: number;
+  description: string;
+  studyId: string;
 }

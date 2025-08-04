@@ -23,7 +23,7 @@ interface DataTableProps<TData, TValue> {
   formValues: { [key: string]: string };
 }
 
-export default function StudyTable<TData, TValue>({
+export default function UserTable<TData, TValue>({
   columns,
   data,
   formValues,

@@ -2,6 +2,7 @@ import { Button } from "../../../components/ui/button";
 import { SignIn } from "../../../apis/authApis";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 type SignInProps = {
   username: string;
@@ -21,6 +22,7 @@ export default function SigninForm() {
       const res = await SignIn(data);
       localStorage.setItem("token", res.token);
       if (res.token) {
+        toast.success("Login successfully!", { duration: 2000, position: "bottom-right",richColors: true }, );
         navigate("/admin/studies");
       }
       // const role = await verifyToken(res.access_tocken);
@@ -34,16 +36,16 @@ export default function SigninForm() {
     }
   };
   return (
-    <div className="flex flex-col border border-slate-100 p-5 rounded-md gap-3 py-5">
+    <div className="flex flex-col border border-slate-300 md:p-5 p-2 rounded-md gap-3 md:py-5 py-2">
       <div className="flex flex-col justify-center items-center">
         <img
           src="/src/assets/logo_img.png"
           alt="logo"
-          className="w-1/3 h-1/3"
+          className="md:w-1/3 md:h-1/3 w-1/4 h-1/4"
         />
       </div>
       <div className="flex flex-col justify-center items-center">
-        <h3 className="text-2xl font-semibold py-3">Login to your account</h3>
+        <h3 className="md:text-2xl text-lg font-semibold py-3">Login to your account</h3>
       </div>
       <div>
         <form
@@ -51,9 +53,9 @@ export default function SigninForm() {
           className="flex flex-col space-y-5"
         >
           <div className="flex flex-col">
-            <label htmlFor="username" className="text-sm text-secondary uppercase">UserName</label>
+            <label htmlFor="username" className="md:text-sm text-xs text-secondary uppercase">UserName</label>
             <input
-              className="rounded-sm p-2 border border-slate-100 outline-bg-secondary"
+              className="rounded-sm md:p-2 p-1 border border-slate-200 outline-bg-secondary"
               {...register("username", {
                 required: "username is required",
                 maxLength: 20,
@@ -66,10 +68,10 @@ export default function SigninForm() {
             )}
           </div>
           <div className="flex flex-col">
-            <label htmlFor="password" className="text-sm text-secondary uppercase">Password</label>
+            <label htmlFor="password" className="md:text-sm text-xs text-secondary uppercase">Password</label>
             <input
               type="password"
-              className="rounded-sm p-2 border border-slate-100 outline-bg-secondary"
+              className="rounded-sm md:p-2 p-1 border border-slate-200 outline-bg-secondary"
               {...register("password", { required: "Password is required" })}
             />
             {errors.password && (
@@ -80,7 +82,7 @@ export default function SigninForm() {
           </div>
           <Button
             type="submit"
-            className="bg-bg-secondary w-full font-semibold text-white hover:bg-bg-secondary/70 mt-2"
+            className="bg-bg-secondary w-full font-semibold text-white hover:bg-bg-secondary/70 mt-2 "
           >
             Login now
           </Button>

@@ -27,3 +27,10 @@ export const GetUserByUsername = async (username: string) => {
     .catch((err) => console.log(err));
   return res;
 };
+export const GetAllUsers = async () => {
+  const res = await axios
+    .get(`${url}/all`)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+};

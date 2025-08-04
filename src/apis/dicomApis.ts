@@ -91,3 +91,33 @@ export const getStudies = async () => {
     .catch((err) => console.log(err));
   return res;
 };
+export const getAllDiagnoses = async () => {
+  const res = await axios
+    .get(`${url}/diagnoses`)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+};
+export const uploadDicomImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const files = e.target.files;
+  if (!files || files.length === 0) return;
+
+  const formData = new FormData();
+  for (let i = 0; i < files.length; i++) {
+    formData.append("file", files[i]); // KEY phải là "file" để Spring nhận đúng
+  }
+
+  try {
+    const res = await axios.post(`${url}/upload`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    console.log("Response:", res.data);
+    return res.data;
+  } catch (err) {
+    console.error("Upload failed:", err);
+    throw err;
+  }
+};
