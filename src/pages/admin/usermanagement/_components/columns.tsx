@@ -18,16 +18,6 @@ export type User = {
 
 export const columns: ColumnDef<User>[] = [
   {
-      id: "InfoDetails",
-      cell: ({ row }) => {
-        return (
-          <div>
-            <PatientDetailsDialog props={row.original}/>
-          </div>
-        );
-      },
-    },
-  {
     accessorKey: "username",
     header: "User’s name",
   },
@@ -55,7 +45,7 @@ export const columns: ColumnDef<User>[] = [
       return row.original.roles.map((role, index) => (
         <div
           key={index}
-          className={`inline px-2 py-1 w-fit ml-2 text-white ${
+          className={`inline px-2 py-1 text-xs w-fit ml-2 text-white ${
             role.name === "ROLE_ADMIN"
               ? "bg-red-500 rounded-full"
               : "bg-green-500 rounded-full"
@@ -66,13 +56,23 @@ export const columns: ColumnDef<User>[] = [
       ));
     },
   },
+    {
+      id: "InfoDetails",
+      cell: ({ row }) => {
+        return (
+          <div className="flex justify-end">
+            <PatientDetailsDialog props={row.original}/>
+          </div>
+        );
+      },
+    },
   {
     id: "actions",
     cell: () => {
       return (
         <div className="flex justify-end text-secondary">
           <div className="p-2 hover:bg-gray-100 rounded-md">
-            <Trash size={20} className="text-red-500 cursor-pointer" />
+            <Trash size={18} className="text-red-500 cursor-pointer" />
           </div>
         </div>
       );

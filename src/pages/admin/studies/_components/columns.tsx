@@ -23,6 +23,9 @@ export type Study = {
   patientID?: string;
   sex?: string;
   patientBirthDate?: Date;
+  id?: number;
+  studyId?: string;
+  description?: string;
 };
 
 export const columns: ColumnDef<Study>[] = [
@@ -34,7 +37,7 @@ export const columns: ColumnDef<Study>[] = [
         //   <List />
         // </div>
         <div>
-          <StudyDetailsDialog props={row.original}/>
+          <StudyDetailsDialog props={row.original} />
         </div>
       );
     },
@@ -60,17 +63,21 @@ export const columns: ColumnDef<Study>[] = [
     accessorKey: "diagnose",
     header: "Status",
     cell: ({ row }) => {
-    return row.original.diagnose?.description ? "Đã chuẩn đoán" : "Chưa chuẩn đoán";
-  },
+      return row.original.diagnose?.description
+        ? "Đã chuẩn đoán"
+        : "Chưa chuẩn đoán";
+    },
   },
   {
     id: "actions",
     cell: ({ row }) => {
       return (
-        <div>
-          <Link to={`/diagnosis/${row.original.studyInstanceUID}`}>
-            <Copy />
-          </Link>
+        <div className="flex justify-end text-secondary">
+          <div className="p-2 hover:bg-gray-100 rounded-md">
+            <Link to={`/diagnosis/${row.original.studyInstanceUID}`}>
+              <Copy size={16} className="text-menu-items" />
+            </Link>
+          </div>
         </div>
       );
     },

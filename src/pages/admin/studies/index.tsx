@@ -119,7 +119,7 @@ export default function Component() {
         <div className="flex flex-col items-end justify-end">
           <button
             onClick={handleSearch}
-            className="bg-bg-secondary font-semibold text-white md:py-2 md:px-3 p-1 w-28 rounded-md hover:bg-bg-secondary/70"
+            className="bg-bg-secondary font-semibold text-white md:px-2 p-1 w-28 rounded-md hover:bg-bg-secondary/70"
           >
             Submit
           </button>

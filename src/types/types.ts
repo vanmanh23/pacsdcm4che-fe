@@ -35,7 +35,7 @@ export type SeriesProps = {
   seriesDate: Date;
   seriesTime: Date;
   studyInstanceUID: string;
-  instances: InstanceProps[]
+  instances?: InstanceProps[]
 }
 export type InstanceProps = {
   referencedSopInstanceUID: string;

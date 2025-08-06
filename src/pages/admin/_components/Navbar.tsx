@@ -19,39 +19,39 @@ const menuItems = [
   {
     name: "Dashboard",
     link: "/admin",
-    icon: <LayoutDashboard />,
+    icon: <LayoutDashboard size={18}/>,
   },
   {
     name: "Patients",
     link: "/admin/patients",
-    icon: <FileUser />,
+    icon: <FileUser size={18}/>,
   },
   {
     name: "Studies",
     link: "/admin/studies",
-    icon: <Layers />,
+    icon: <Layers size={18}/>,
   },
   {
     name: "User management",
     link: "/admin/usermanagement",
-    icon: <ChartColumn />,
+    icon: <ChartColumn size={18}/>,
   },
 ];
 const bottom_navbar = [
   {
     name: "Help & Support",
     link: "/help",
-    icons: <Info />,
+    icons: <Info size={18}/>,
   },
   {
     name: "Setting",
     link: "/settings",
-    icons: <Settings />,
+    icons: <Settings size={18}/>,
   },
   {
     name: "About us",
     link: "/aboutus",
-    icons: <Users />,
+    icons: <Users size={18}/>,
   },
 ];
 export default function Navbar({
@@ -76,8 +76,8 @@ export default function Navbar({
       <div
         className={`sm:flex md:flex xl:flex 2xl:flex flex-col justify-between h-full space-y-4 p-5 overflow-hidden transition-all duration-200 ease-in-out hidden`}
         style={{
-          width: isOpenNavbar ? "240px" : "96px",
-          minWidth: isOpenNavbar ? "240px" : "96px",
+          width: isOpenNavbar ? "240px" : "86px",
+          minWidth: isOpenNavbar ? "240px" : "86px",
           willChange: "width",
         }}
       >
@@ -108,7 +108,7 @@ export default function Navbar({
                   onClick={() => handleOption(item.name)}
                 >
                   <p
-                    className={`p-3 hover:bg-gray-200 rounded-md flex items-center gap-2 transition-all duration-300 ${
+                    className={`p-2 hover:bg-gray-200 rounded-md flex items-center gap-2 transition-all duration-300 ${
                       stateOption === item.name
                         ? "bg-gray-200 text-menu-items"
                         : "text-secondary"

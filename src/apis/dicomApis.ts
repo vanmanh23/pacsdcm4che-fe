@@ -98,7 +98,9 @@ export const getAllDiagnoses = async () => {
     .catch((err) => console.log(err));
   return res;
 };
-export const uploadDicomImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
+export const uploadDicomImg = async (
+  e: React.ChangeEvent<HTMLInputElement>
+) => {
   const files = e.target.files;
   if (!files || files.length === 0) return;
 
@@ -120,4 +122,40 @@ export const uploadDicomImg = async (e: React.ChangeEvent<HTMLInputElement>) => 
     console.error("Upload failed:", err);
     throw err;
   }
+};
+
+export const getSeries = async (studyUID: string): Promise<SeriesProps[]> => {
+  const res = await axios
+    .get(`${url}/studies/${studyUID}/series/tags`)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+};
+
+export const getInstances = async (
+  studyUID: string,
+  seriesUID: string
+): Promise<InstanceProps[]> => {
+  const res = await axios
+    .get(`${url}/studies/${studyUID}/series/${seriesUID}/instances/tags`)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+};
+export const getInstanceImage = async (
+  instanceUID: string,
+  studyUID: string,
+  seriesUID: string
+) => {
+  const res = await axios
+    .get(
+      `${url}/studies/${studyUID}/series/${seriesUID}/instances/${instanceUID}/images`,
+      {
+        responseType: "blob",
+      }
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  const urlImg = URL.createObjectURL(res);
+  return urlImg;
 };

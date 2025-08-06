@@ -55,7 +55,7 @@ export default function Header({handleOpenNavbar}: NavbarProps) {
       <div className="">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-center items-center gap-3">
-            <AlignJustify onClick={handleOpenNavbar} className="cursor-pointer"/>
+            <AlignJustify size={18} onClick={handleOpenNavbar} className="cursor-pointer"/>
             <p className="text-2xl font-semibold">Studies</p>
           </div>
           <div className="md:flex sm:flex xl:flex 2xl:flex hidden flex-row justify-between gap-7 text-menu-items">
@@ -66,12 +66,12 @@ export default function Header({handleOpenNavbar}: NavbarProps) {
                   onClick={() => setOpenDropdown(!openDropdown)}
                 >
                   <CircleUser
-                    size={30}
+                    size={20}
                     color="#919191"
                     className="cursor-pointer"
                   />
                   <ChevronDown
-                    size={24}
+                    size={14}
                     color="#919191"
                     className={`cursor-pointer transition-transform duration-300 ${
                       openDropdown ? "-rotate-180" : ""
@@ -79,44 +79,43 @@ export default function Header({handleOpenNavbar}: NavbarProps) {
                   />
                 </div>
               </PopoverTrigger>
-              <PopoverContent className="w-64 bg-white border border-gray-200 outline-none shadow-slate-200">
-                <div className="flex flex-col">
+              <PopoverContent className="w-56 bg-white border border-gray-200 outline-none shadow-slate-200">
+                <div className="flex flex-col text-xs">
                   <div className="flex flex-row items-center gap-2">
                     <CircleUser
-                      size={30}
+                      size={18}
                       color="#919191"
                       className="cursor-pointer"
                     />
-                    <p>{userInfo.username}</p>
+                    <p className="text-sm">{userInfo.username}</p>
                   </div>
-                  <hr className="border-t border-gray-100 my-4" />
+                  <hr className="border-t border-gray-100 my-2" />
                   {userRoles.includes("ROLE_ADMIN") && (
-                    <div className="flex flex-row items-center gap-2 p-2 hover:bg-slate-100 rounded-md outline-none text-menu-items/70">
-                      <UserPlus />
+                    <div className="flex flex-row items-center gap-1 p-2 hover:bg-slate-100 rounded-md outline-none text-menu-items/70">
+                      <UserPlus size={18}/>
                       <Link to="/auth/signup">Add account</Link>
                     </div>
                   )}
 
-                  <div className="flex flex-row items-center gap-2 p-2 hover:bg-slate-100 rounded-md outline-none text-menu-items/70">
-                    <Users />
+                  <div className="flex flex-row items-center gap-1 p-2 hover:bg-slate-100 rounded-md outline-none text-menu-items/70">
+                    <Users size={18}/>
                     <Link to="/aboutus">About us</Link>
                   </div>
-                  <div className="flex flex-row items-center gap-2 p-2 hover:bg-slate-100 rounded-md outline-none text-menu-items/70">
-                    <Settings />
+                  <div className="flex flex-row items-center gap-1 p-2 hover:bg-slate-100 rounded-md outline-none text-menu-items/70">
+                    <Settings size={18}/>
                     <p>Setting</p>
                     <Link to="/settings">Setting</Link>
                   </div>
-                  <hr className="border-t border-gray-100 my-4" />
-                  <div className="flex flex-row items-center gap-2 p-2 hover:bg-slate-100 rounded-md outline-none text-secondary">
-                    <Info />
-                    <p>Help</p>
+                  <hr className="border-t border-gray-100 my-2" />
+                  <div className="flex flex-row items-center gap-1 p-2 hover:bg-slate-100 rounded-md outline-none text-secondary">
+                    <Info size={18}/>
                     <Link to="/help">Help</Link>
                   </div>
                   <div
                     onClick={handleLogout}
-                    className="flex cursor-pointer flex-row items-center gap-2 p-2 hover:bg-slate-100 rounded-md outline-none text-secondary"
+                    className="flex cursor-pointer flex-row items-center gap-1 p-2 hover:bg-slate-100 rounded-md outline-none text-secondary"
                   >
-                    <LogOut />
+                    <LogOut size={18}/>
                     <p>Sign Out</p>
                   </div>
                 </div>
