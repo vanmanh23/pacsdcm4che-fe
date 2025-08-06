@@ -32,6 +32,7 @@ export default function SigninForm() {
       //   window.location.reload();
       // }
     } catch (error) {
+      toast.error("Login failed!", { duration: 2000, position: "bottom-right", richColors: true }, );
       console.error("Login failed", error);
     }
   };

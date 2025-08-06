@@ -42,14 +42,8 @@ export default function UserTable<TData, TValue>({
     },
   });
   useEffect(() => {
-    table.getColumn("patientName")?.setFilterValue(formValues.patientName);
-  }, [formValues.patientName]);
-  useEffect(() => {
-    table.getColumn("studyID")?.setFilterValue(formValues.studyId);
-  }, [formValues.studyId]);
-  useEffect(() => {
-    table.getColumn("modality")?.setFilterValue(formValues.modality);
-  }, [formValues.modality]);
+    table.getColumn("username")?.setFilterValue(formValues.userName);
+  }, [formValues.userName]);
   return (
     <div className="overflow-hidden rounded-md border">
       <Table>
