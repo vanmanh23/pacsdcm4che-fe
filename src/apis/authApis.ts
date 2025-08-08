@@ -1,8 +1,16 @@
 import axios from "axios";
+import type { User } from "../pages/admin/usermanagement/_components/columns";
 
 export interface user {
   username: string;
   password: string;
+}
+export interface userProps {
+  username: string;
+  password: string;
+  role: [];
+  email: string;
+  phoneNumber: string;
 }
 const url = import.meta.env.VITE_USER_URL;
 
@@ -27,9 +35,42 @@ export const GetUserByUsername = async (username: string) => {
     .catch((err) => console.log(err));
   return res;
 };
-export const GetAllUsers = async () => {
+export const GetAllUsers = async (): Promise<User[]> => {
   const res = await axios
     .get(`${url}/all`)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+};
+
+export const UpdateUser = async (
+  data: User,
+  id: number,
+  token: string
+): Promise<User> => {
+  const res = await axios
+    .put(`${url}/update/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+};
+export const DeleteUser = async (id: number, token: string) => {
+  const res = await axios
+    .delete(`${url}/delete/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+};
+export const CreateUser = async (data: User) => {
+  const res = await axios
+    .post(`${url}/signup`, data)
     .then((res) => res.data)
     .catch((err) => console.log(err));
   return res;

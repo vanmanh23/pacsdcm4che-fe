@@ -46,7 +46,7 @@ export default function SigninForm() {
         />
       </div>
       <div className="flex flex-col justify-center items-center">
-        <h3 className="md:text-2xl text-lg font-semibold py-3">Login to your account</h3>
+        <h3 className="md:text-xl text-lg font-semibold py-3">Login to your account</h3>
       </div>
       <div>
         <form
@@ -56,7 +56,7 @@ export default function SigninForm() {
           <div className="flex flex-col">
             <label htmlFor="username" className="md:text-sm text-xs text-secondary uppercase">UserName</label>
             <input
-              className="rounded-sm md:p-2 p-1 border border-slate-200 outline-bg-secondary"
+              className="rounded-sm p-1 border border-slate-200 outline-bg-secondary"
               {...register("username", {
                 required: "username is required",
                 maxLength: 20,
@@ -72,7 +72,7 @@ export default function SigninForm() {
             <label htmlFor="password" className="md:text-sm text-xs text-secondary uppercase">Password</label>
             <input
               type="password"
-              className="rounded-sm md:p-2 p-1 border border-slate-200 outline-bg-secondary"
+              className="rounded-sm p-1 border border-slate-200 outline-bg-secondary"
               {...register("password", { required: "Password is required" })}
             />
             {errors.password && (

@@ -1,5 +1,5 @@
 export default function Component() {
   return (
-    <div>dashboard page</div>
+    <div>setting</div>
   )
 }

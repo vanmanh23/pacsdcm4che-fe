@@ -3,27 +3,31 @@ export type PatientProps = {
     patientID: string;
     sex: string;
     patientBirthDate: Date;
-    studies: StudyProps[];
 };
 
 export type StudyProps = {
   studyInstanceUID: string;
   studyID: string;
   studyDate: Date;
-  studyTime: Date;
-  accessionNumber: string;
-  studyDescription: string;
-  referringPhysicianName: string;
+  studyTime?: Date;
+  accessionNumber?: string;
+  studyDescription?: string;
+  referringPhysicianName?: string;
   modality: string;
-  numberOfSeries: number;
-  numberOfInstances: number;
+  numberOfSeries?: number;
+  numberOfInstances?: number;
 
-  patientID: string;
+  patientID?: string;
   patientName: string;
-  sex: string;
-  patientBirthDate: Date;
   series: SeriesProps[]
-  diagnose?: DiagnoseProps
+  diagnose?: DiagnoseProps| undefined;
+  studyDates: Date;
+
+  sex?: string;
+  patientBirthDate?: Date;
+  id?: number;
+  studyId?: string;
+  description?: string;
 }
 
 export type SeriesProps = {

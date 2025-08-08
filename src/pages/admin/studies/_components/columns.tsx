@@ -3,7 +3,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { Copy } from "lucide-react";
 import { Link } from "react-router-dom";
-import type { DiagnoseProps } from "../../../../types/types";
+import type { DiagnoseProps, StudyProps } from "../../../../types/types";
 import StudyDetailsDialog from "./StudyDetailsDialog";
 
 // You can use a Zod schema here if you want.
@@ -28,7 +28,7 @@ export type Study = {
   description?: string;
 };
 
-export const columns: ColumnDef<Study>[] = [
+export const columns: ColumnDef<StudyProps>[] = [
   {
     id: "InfoDetails",
     cell: ({ row }) => {
@@ -55,8 +55,16 @@ export const columns: ColumnDef<Study>[] = [
     header: "modality",
   },
   {
+    id: "studyDate",
     accessorKey: "studyDate",
     header: "Study Date",
+    cell: ({ row }) => {
+      return (
+        <div className="p-2 hover:bg-gray-100 rounded-md text-secondary">
+          {new Date(row.original.studyDate).toLocaleDateString("vi-VN")}
+        </div>
+      );
+    }
   },
   {
     id: "status",

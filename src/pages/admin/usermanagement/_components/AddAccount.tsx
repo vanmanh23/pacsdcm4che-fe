@@ -5,38 +5,29 @@ import {
   DialogTrigger,
 } from "../../../../components/ui/dialog";
 import { Button } from "../../../../components/ui/button";
-import { SquarePen } from "lucide-react";
+import { Plus } from "lucide-react";
 import type { User } from "./columns";
 import { useForm } from "react-hook-form";
-import { UpdateUser } from "../../../../apis/authApis";
+import { CreateUser } from "../../../../apis/authApis";
 import { toast } from "sonner";
 
-export default function PatientDetailsDialog({ props }: { props: User }) {
+export default function AddAccount() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<User>();
   const onSubmit = async (data: User) => {
-    const token = localStorage.getItem("token");
-    if (token === null) {
-      toast.error("You are not logged in!", {
-        duration: 2000,
-        position: "bottom-right",
-        richColors: true,
-      });
-      return;
-    }
-    const res = await UpdateUser(data, props.id, token);
+    const res = await CreateUser(data);
     if (res) {
-      toast.success("User updated successfully!", {
+      toast.success("Create user successfully!", {
         duration: 2000,
         position: "bottom-right",
         richColors: true,
       });
       window.location.reload();
     } else {
-      toast.error("User update failed!", {
+      toast.error("Create user failed!", {
         duration: 2000,
         position: "bottom-right",
         richColors: true,
@@ -47,18 +38,21 @@ export default function PatientDetailsDialog({ props }: { props: User }) {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="bg-white outline-none hover:bg-gray-100">
-            <SquarePen />
+          <Button className=" bg-bg-secondary hover:bg-bg-secondary/70 text-white h-fit">
+            <div className="flex flex-row items-center justify-center h-full">
+              <Plus />
+              <span className="ml-2 text-sm">Add User</span>
+            </div>
           </Button>
         </DialogTrigger>
-        <DialogContent className="w-96 md:h-[50%] h-full overflow-y-scroll no-scrollbar rounded-xl bg-white md:p-3 p-2 xl:space-y-3 md:space-y-3 space-y-2 shadow-lg">
+        <DialogContent className="w-96 md:h-[50%] h-full overflow-y-scroll no-scrollbar  rounded-xl bg-white md:p-3 p-2 xl:space-y-3 md:space-y-3 space-y-2 shadow-lg">
           <div className="w-full flex justify-center items-center min-h-fit">
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="bg-white rounded-lg  p-1 w-full "
             >
               <h2 className="text-center text-xl font-semibold mb-3">
-                Edit user
+                + Add Account
               </h2>
 
               {/* Name */}
@@ -68,7 +62,7 @@ export default function PatientDetailsDialog({ props }: { props: User }) {
                 </label>
                 <input
                   type="text"
-                  defaultValue={props.username}
+                  placeholder="Enter your name"
                   {...register("username", { required: "Name is required" })}
                   className="w-full px-2 py-1 border border-gray-300 rounded outline-bg-secondary"
                 />
@@ -85,7 +79,7 @@ export default function PatientDetailsDialog({ props }: { props: User }) {
                 </label>
                 <input
                   type="password"
-                  placeholder="Enter your new password"
+                  placeholder="Enter your password"
                   {...register("password", {
                     required: "password is required",
                   })}
@@ -104,7 +98,7 @@ export default function PatientDetailsDialog({ props }: { props: User }) {
                 </label>
                 <input
                   type="text"
-                  defaultValue={props.phoneNumber}
+                  placeholder="Enter your phone number"
                   {...register("phoneNumber", { required: "Name is required" })}
                   className="w-full  px-2 py-1  border border-gray-300 rounded outline-bg-secondary"
                 />
@@ -122,7 +116,7 @@ export default function PatientDetailsDialog({ props }: { props: User }) {
                 </label>
                 <input
                   type="email"
-                  defaultValue={props.email}
+                  placeholder="Enter your email"
                   {...register("email", {
                     required: "Email is required",
                     pattern: {

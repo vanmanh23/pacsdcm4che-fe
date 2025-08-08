@@ -10,10 +10,10 @@ import {
 } from "../../../../components/ui/dialog";
 import { Button } from "../../../../components/ui/button";
 import { List } from "lucide-react";
-import type { Study } from "./columns";
 import { Link } from "react-router-dom";
+import type { StudyProps } from "../../../../types/types";
 
-export default function StudyDetailsDialog({ props }: { props: Study }) {
+export default function StudyDetailsDialog({ props }: { props: StudyProps }) {
   return (
     <div className="w-full overflow-hidden">
       <Dialog>
@@ -22,7 +22,7 @@ export default function StudyDetailsDialog({ props }: { props: Study }) {
             <List />
           </Button>
         </DialogTrigger>
-        <DialogContent className="w-full md:h-[90%] h-full overflow-y-scroll max-w-2xl rounded-xl bg-white md:p-6 p-2 xl:space-y-3 md:space-y-3 space-y-2 shadow-lg">
+        <DialogContent className="w-full md:h-[90%] h-full overflow-y-scroll no-scrollbar max-w-2xl rounded-xl bg-white md:p-6 p-2 xl:space-y-3 md:space-y-3 space-y-2 shadow-lg">
           <DialogHeader>
             <DialogTitle className="md:text-xl text-lg font-semibold">
               Study details

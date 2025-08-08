@@ -16,6 +16,7 @@ import type { AppDispatch } from "../../../store/store";
 import { setRoles } from "../../../features/userRoles";
 import { mergeStudiesDiagnoseData } from "../../../utils/mergeStudiesDiagnoseData";
 import type { StudyProps } from "../../../types/types";
+import { X } from "lucide-react";
 
 const formSearchItems = [
   {
@@ -49,14 +50,20 @@ export default function Component() {
   const [sizeValue, setSizeValue] = useState(0);
   const [studiesData, setStudiesData] = useState<StudyProps[]>([]);
   const dispatch = useDispatch<AppDispatch>();
+  const [resetResult, setResetResult] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (field: string, value: string) => {
     setFormValues((prev) => ({ ...prev, [field]: value }));
   };
   const handleSearch = () => {
+    setResetResult(true);
     setSubmitSearch(formValues);
     // setFormValues({});
+  };
+  const handleReset = () => {
+    setSubmitSearch({});
+    setResetResult(false);
   };
   useEffect(() => {
     const fetchInfo = async () => {
@@ -77,7 +84,6 @@ export default function Component() {
       }
     };
     fetchInfo();
-
   }, []);
   useEffect(() => {
     const getUserFromJWT = async (jwt: string) => {
@@ -101,6 +107,7 @@ export default function Component() {
     });
     setStudiesData(filteredItems);
   }, [submitSearch.From_date, submitSearch.To_date]);
+  console.log("resetResult", resetResult)
   return (
     <div className="h-full mx-6 space-y-4">
       <MoreFunctions count={countValue} size={sizeValue} />
@@ -123,6 +130,17 @@ export default function Component() {
           >
             Submit
           </button>
+        </div>  
+        <div className="flex flex-col items-end justify-end py-2">
+          {resetResult && (
+            <div className="flex flex-row items-center gap-2">
+              <X
+                size={16}
+                className="text-secondary cursor-pointer"
+                onClick={handleReset}
+              />
+            </div>
+          )}
         </div>
       </div>
       <div>

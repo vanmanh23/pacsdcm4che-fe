@@ -1,8 +1,8 @@
 // This type is used to define the shape of our data.
 
 import type { ColumnDef } from "@tanstack/react-table";
-import { EllipsisVertical, Trash } from "lucide-react";
 import PatientDetailsDialog from "./EditUserForm";
+import RemoveHandle from "./RemoveHandle";
 
 type Role = {
   id: number;
@@ -11,7 +11,9 @@ type Role = {
 export type User = {
   id: number;
   username: string;
+  password: string;
   roles: Role[];
+  role?: ["admin" | "user"];
   email?: string;
   phoneNumber?: string;
 };
@@ -68,11 +70,11 @@ export const columns: ColumnDef<User>[] = [
     },
   {
     id: "actions",
-    cell: () => {
+    cell: ({ row }) => {
       return (
         <div className="flex justify-end text-secondary">
           <div className="p-2 hover:bg-gray-100 rounded-md">
-            <Trash size={18} className="text-red-500 cursor-pointer" />
+            <RemoveHandle id={row.original.id}/>
           </div>
         </div>
       );

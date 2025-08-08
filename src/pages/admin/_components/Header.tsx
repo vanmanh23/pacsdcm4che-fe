@@ -103,8 +103,7 @@ export default function Header({handleOpenNavbar}: NavbarProps) {
                   </div>
                   <div className="flex flex-row items-center gap-1 p-2 hover:bg-slate-100 rounded-md outline-none text-menu-items/70">
                     <Settings size={18}/>
-                    <p>Setting</p>
-                    <Link to="/settings">Setting</Link>
+                    <Link to="/admin/setting">Setting</Link>
                   </div>
                   <hr className="border-t border-gray-100 my-2" />
                   <div className="flex flex-row items-center gap-1 p-2 hover:bg-slate-100 rounded-md outline-none text-secondary">

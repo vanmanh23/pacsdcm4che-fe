@@ -39,7 +39,7 @@ export default function MoreFunctions({ count, size }: MoreInfoProps) {
         className="lg:w-full md:w-full sm:w-full h-fit"
       >
         <div className="bg-bg-secondary hover:bg-bg-secondary/70 cursor-pointer md:p-2 p-1 rounded-md text-white flex flex-row gap-2 w-full items-center justify-center">
-          <Upload fontWeight={"bold"} className="md:w-6 md:h-6 w-4 h-4"/>
+          <Upload fontWeight={"bold"} className="md:w-4 md:h-4 w-3 h-3"/>
           <p className="font-semibold text-sm"> Upload dicom object </p>
         </div>
       </label>

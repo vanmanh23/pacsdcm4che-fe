@@ -1,5 +1,4 @@
 import {
-  ChartColumn,
   FileUser,
   Info,
   Layers,
@@ -8,7 +7,7 @@ import {
   Users,
   X,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import type { AppDispatch, RootState } from "../../../store/store";
@@ -34,7 +33,7 @@ const menuItems = [
   {
     name: "User management",
     link: "/admin/usermanagement",
-    icon: <ChartColumn size={18}/>,
+    icon: <Users size={18}/>,
   },
 ];
 const bottom_navbar = [
@@ -45,7 +44,7 @@ const bottom_navbar = [
   },
   {
     name: "Setting",
-    link: "/settings",
+    link: "/admin/setting",
     icons: <Settings size={18}/>,
   },
   {
@@ -69,8 +68,8 @@ export default function Navbar({
   const stateOption = useSelector(
     (state: RootState) => state.option.valueOption
   );
-  useEffect(() => {}, [stateOption]);
-
+  useEffect((
+  ) => {}, [stateOption]);
   return (
     <div className="h-full">
       <div
