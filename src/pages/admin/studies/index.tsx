@@ -17,6 +17,7 @@ import { setRoles } from "../../../features/userRoles";
 import { mergeStudiesDiagnoseData } from "../../../utils/mergeStudiesDiagnoseData";
 import type { StudyProps } from "../../../types/types";
 import { X } from "lucide-react";
+import { Skeleton } from "../../../components/ui/skeleton";
 
 const formSearchItems = [
   {
@@ -48,6 +49,7 @@ export default function Component() {
   );
   const [countValue, setCountValue] = useState(0);
   const [sizeValue, setSizeValue] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [studiesData, setStudiesData] = useState<StudyProps[]>([]);
   const dispatch = useDispatch<AppDispatch>();
   const [resetResult, setResetResult] = useState(false);
@@ -67,6 +69,7 @@ export default function Component() {
   };
   useEffect(() => {
     const fetchInfo = async () => {
+      setLoading(true);
       try {
         const [count, size, studies, diagnoses] = await Promise.all([
           getStudyCount(),
@@ -77,10 +80,10 @@ export default function Component() {
         setCountValue(count);
         setSizeValue(size);
         setStudiesData(mergeStudiesDiagnoseData(studies, diagnoses));
-        // setStudiesData(studies);
-        // setDiagnosesData(diagnoses);
       } catch (error) {
         console.error("Error fetching data", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchInfo();
@@ -107,7 +110,7 @@ export default function Component() {
     });
     setStudiesData(filteredItems);
   }, [submitSearch.From_date, submitSearch.To_date]);
-  console.log("resetResult", resetResult)
+
   return (
     <div className="h-full mx-6 space-y-4">
       <MoreFunctions count={countValue} size={sizeValue} />
@@ -130,7 +133,7 @@ export default function Component() {
           >
             Submit
           </button>
-        </div>  
+        </div>
         <div className="flex flex-col items-end justify-end py-2">
           {resetResult && (
             <div className="flex flex-row items-center gap-2">
@@ -144,11 +147,23 @@ export default function Component() {
         </div>
       </div>
       <div>
-        <StudyTable
-          columns={columns}
-          data={studiesData}
-          formValues={submitSearch}
-        />
+        {loading ? (
+          <div className="space-y-3 w-full">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="flex w-full items-center space-x-4">
+                <div className="space-y-2 w-full">
+                  <Skeleton className="h-8 w-full bg-slate-100" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <StudyTable
+            columns={columns}
+            data={studiesData}
+            formValues={submitSearch}
+          />
+        )}
       </div>
     </div>
   );

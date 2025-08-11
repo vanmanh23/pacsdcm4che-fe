@@ -52,9 +52,9 @@ export default function SearchPatient({
           className="w-full px-3 py-1 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="">Gender</option>
-          <option value="f">Female</option>
-          <option value="m">Male</option>
-          <option value="o">Other</option>
+          <option value="F">Female</option>
+          <option value="M">Male</option>
+          <option value="O">Other</option>
         </select>
         <button
           onClick={searchClick}

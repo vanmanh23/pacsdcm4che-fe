@@ -13,8 +13,8 @@ export default function MoreFunctions({ count, size }: MoreInfoProps) {
     const result = await uploadDicomImg(e);
     toast.success("Upload Dicom images successfully!", { duration: 2000, position: "bottom-right",richColors: true }, );
     console.log("result-------: ", result);
-  } catch {
-    toast.error("Upload Dicom images failed!", { duration: 2000, position: "bottom-right", richColors: true }, );
+  } catch(error) {
+    toast.error(`Upload Dicom images failed! ${error}`, { duration: 2000, position: "bottom-right", richColors: true }, );
   }
 };
 
@@ -33,7 +33,7 @@ export default function MoreFunctions({ count, size }: MoreInfoProps) {
         </div>
       </div>
       <div className="md:w-1/4 w-full">
-        <input type="file" multiple id="upload-input" className="hidden" onChange={handleUpload}/>
+        <input type="file" multiple id="upload-input" accept=".dcm"  className="hidden" onChange={handleUpload}/>
       <label
         htmlFor="upload-input"
         className="lg:w-full md:w-full sm:w-full h-fit"

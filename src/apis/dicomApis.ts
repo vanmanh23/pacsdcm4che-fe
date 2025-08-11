@@ -1,9 +1,9 @@
 import axios from "axios";
 import type {
+  DiagnoseProps,
   InstanceProps,
   PatientProps,
   SeriesProps,
-  StudyProps,
 } from "../types/types";
 
 const url = import.meta.env.VITE_DICOM_APIS;
@@ -167,4 +167,18 @@ export const getPatients = async (token: string): Promise<PatientProps[]> => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
     return res;
+}
+export const updateDiagnose = async (data: DiagnoseProps) => {
+  const res = await axios
+    .put(`${url}/diagnose`, data)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+}
+export const getDiagnoseByStudyInstanceId = async (studyInstanceUID: string) => {
+  const res = await axios
+    .get(`${url}/diagnoses/${studyInstanceUID}`)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+    return res
 }

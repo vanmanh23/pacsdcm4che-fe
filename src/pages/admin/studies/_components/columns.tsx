@@ -2,9 +2,17 @@
 
 import type { ColumnDef } from "@tanstack/react-table";
 import { Copy } from "lucide-react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import type { DiagnoseProps, StudyProps } from "../../../../types/types";
 import StudyDetailsDialog from "./StudyDetailsDialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "../../../../components/ui/dialog";
+import { Button } from "../../../../components/ui/button";
+import DiagnoseUpdate from "./DiagnoseUpdate";
 
 // You can use a Zod schema here if you want.
 export type Study = {
@@ -60,20 +68,26 @@ export const columns: ColumnDef<StudyProps>[] = [
     header: "Study Date",
     cell: ({ row }) => {
       return (
-        <div className="p-2 hover:bg-gray-100 rounded-md text-secondary">
+        <div className="p-1 hover:bg-gray-100 rounded-md text-secondary">
           {new Date(row.original.studyDate).toLocaleDateString("vi-VN")}
         </div>
       );
-    }
+    },
   },
   {
     id: "status",
     accessorKey: "diagnose",
     header: "Status",
     cell: ({ row }) => {
-      return row.original.diagnose?.description
-        ? "Đã chuẩn đoán"
-        : "Chưa chuẩn đoán";
+      return row.original.diagnose?.description ? (
+        <p className="px-2 py-1 bg-green-500 rounded-full w-fit text-white">
+          Đã chuẩn đoán
+        </p>
+      ) : (
+        <p className="px-2 py-1 bg-red-500 rounded-full w-fit text-white">
+          Chưa chuẩn đoán
+        </p>
+      );
     },
   },
   {
@@ -81,10 +95,26 @@ export const columns: ColumnDef<StudyProps>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex justify-end text-secondary">
-          <div className="p-2 hover:bg-gray-100 rounded-md">
-            <Link to={`/diagnosis/${row.original.studyInstanceUID}`}>
+          <div className=" hover:bg-gray-100 rounded-md">
+            {/* <Link to={`/diagnosis/${row.original.studyInstanceUID}`}>
               <Copy size={16} className="text-menu-items" />
-            </Link>
+            </Link> */}
+            {/*  */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline">
+                  <Copy size={16} className="text-menu-items" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-[90vw] max-h-[90vh] p-4 flex flex-col items-center justify-center overflow-auto bg-white no-scrollbar">
+                <DialogHeader></DialogHeader>
+                <div className="">
+                  <DiagnoseUpdate id={row.original.studyInstanceUID} />
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            {/*  */}
           </div>
         </div>
       );

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getInstanceImage } from "../../../../apis/dicomApis";
+import { Skeleton } from "../../../../components/ui/skeleton";
 
 type DicomRenderProps = {
   sopInstanceUID: string;
@@ -29,7 +30,7 @@ export default function DicomRender({
         {imageUrl ? (
           <img src={imageUrl} alt="dicom" className="w-full rounded border" />
         ) : (
-          <p>Đang tải ảnh...</p>
+          <Skeleton className="flex w-[90px] h-[90px] bg-slate-100" />
         )}
       </div>
     </div>

@@ -53,7 +53,7 @@ export type InstanceProps = {
   instanceCreationTime: Date;
 }
 export type DiagnoseProps = {
-  id: number;
+  id?: number;
   description: string;
   studyId: string;
 }

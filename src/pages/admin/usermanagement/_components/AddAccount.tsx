@@ -51,7 +51,7 @@ export default function AddAccount() {
               onSubmit={handleSubmit(onSubmit)}
               className="bg-white rounded-lg  p-1 w-full "
             >
-              <h2 className="text-center text-xl font-semibold mb-3">
+              <h2 className="text-center md:text-xl text-sm font-semibold mb-3">
                 + Add Account
               </h2>
 
