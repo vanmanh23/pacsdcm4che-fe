@@ -11,7 +11,7 @@ type Role = {
 export type User = {
   id: number;
   username: string;
-  password: string;
+  password?: string;
   roles: Role[];
   role?: ["admin" | "user"];
   email?: string;
@@ -29,7 +29,7 @@ export const columns: ColumnDef<User>[] = [
     header: "Email",
     cell: ({ row }) => {
       return row.original.email ? row.original.email : "-";
-    }
+    },
   },
   {
     id: "phone_number",
@@ -37,7 +37,7 @@ export const columns: ColumnDef<User>[] = [
     header: "Phone number",
     cell: ({ row }) => {
       return row.original.phoneNumber ? row.original.phoneNumber : "-";
-    }
+    },
   },
   {
     id: "roles",
@@ -58,24 +58,24 @@ export const columns: ColumnDef<User>[] = [
       ));
     },
   },
-    {
-      id: "InfoDetails",
-      cell: ({ row }) => {
-        return (
-          <div className="flex justify-end">
-            <PatientDetailsDialog props={row.original}/>
-          </div>
-        );
-      },
-    },
   {
-    id: "actions",
+    id: "InfoDetails",
+    header: "Details",
     cell: ({ row }) => {
       return (
-        <div className="flex justify-end text-secondary">
-          <div className="p-2 hover:bg-gray-100 rounded-md">
-            <RemoveHandle id={row.original.id}/>
-          </div>
+        <div className="flex justify-center">
+            <PatientDetailsDialog props={row.original} />
+        </div>
+      );
+    },
+  },
+  {
+    id: "actions",
+    header: "Delete",
+    cell: ({ row }) => {
+      return (
+        <div className="flex justify-center text-secondary">
+            <RemoveHandle id={row.original.id} />
         </div>
       );
     },

@@ -23,7 +23,7 @@ export default function SigninForm() {
       localStorage.setItem("token", res.token);
       if (res.token) {
         toast.success("Login successfully!", { duration: 2000, position: "bottom-right",richColors: true }, );
-        navigate("/admin/studies");
+        navigate("/admin");
       }
       // const role = await verifyToken(res.access_tocken);
       // if (role.role === "admin") {

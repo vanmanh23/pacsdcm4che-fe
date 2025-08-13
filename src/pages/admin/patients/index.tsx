@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import type { PatientProps } from "../../../types/types";
-import PatientTable from "./_components/PatientTable";
 import { getPatients } from "../../../apis/dicomApis";
 import { toast } from "sonner";
-import { columns } from "./_components/columns";
 import SearchPatient from "./_components/SearchPatient";
 import { Skeleton } from "../../../components/ui/skeleton";
+import PatientsRender from "./_components/PatientsRender";
 
 export default function Component() {
   const [patients, setPatients] = useState<PatientProps[]>([]);
@@ -79,11 +78,12 @@ export default function Component() {
             ))}
           </div>
         ) : (
-          <PatientTable
-            columns={columns}
-            data={patients}
-            formValues={searchValues}
-          />
+          // <PatientTable
+          //   columns={columns}
+          //   data={patients}
+          //   formValues={searchValues}
+          // />
+          <PatientsRender patientName={searchValues.patientName} sex={searchValues.sex}/>
         )}
       </div>
     </div>

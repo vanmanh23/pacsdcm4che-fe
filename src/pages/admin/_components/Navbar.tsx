@@ -82,7 +82,7 @@ export default function Navbar({
       >
         <div>
           <div className="outline-none">
-            <Link to="/" className="outline-none">
+            <Link to="/admin" className="outline-none">
               <img
                 src="/src/assets/logo_img.png"
                 alt="logo"
@@ -95,10 +95,10 @@ export default function Navbar({
           </div>
           <div className="flex flex-col mt-3">
             {filteredItems
-              .filter(
-                (item) =>
-                  item.name !== "Dashboard" || roles.includes("ROLE_ADMIN")
-              )
+              // .filter(
+              //   (item) =>
+              //     item.name !== "Dashboard" || roles.includes("ROLE_ADMIN")
+              // )
               .map((item, key) => (
                 <Link
                   key={key}
@@ -117,7 +117,7 @@ export default function Navbar({
                     <span
                       className={`
       transition-all duration-300 ease-in-out
-      whitespace-nowrap overflow-hidden
+      whitespace-nowrap overflow-hidden text-sm
       ${isOpenNavbar ? "opacity-100 ml-2 visible" : "opacity-0 ml-0 invisible"}
     `}
                     >
@@ -146,7 +146,7 @@ export default function Navbar({
                 <span
                   className={`
       transition-all duration-300 ease-in-out
-      whitespace-nowrap overflow-hidden
+      whitespace-nowrap overflow-hidden text-sm
       ${isOpenNavbar ? "opacity-100 ml-2 visible" : "opacity-0 ml-0 invisible"}
     `}
                 >

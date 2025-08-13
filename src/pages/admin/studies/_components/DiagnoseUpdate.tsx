@@ -1,23 +1,33 @@
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { InstanceProps, SeriesProps } from "../../../../types/types";
-import { useNavigate, useParams } from "react-router-dom";
-import { getDiagnoseByStudyInstanceId, getInstances, getSeries, updateDiagnose } from "../../../../apis/dicomApis";
+import {
+  getDiagnoseByStudyInstanceId,
+  getInstances,
+  getSeries,
+  updateDiagnose,
+} from "../../../../apis/dicomApis";
 import { toast } from "sonner";
 import DicomRender from "../../../diagnosis/[id]/_components/DicomRender";
-import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTrigger } from "../../../../components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "../../../../components/ui/dialog";
 import { Skeleton } from "../../../../components/ui/skeleton";
 import { Button } from "../../../../components/ui/button";
 
-export default function DiagnoseUpdate({id}: {id: string}) {
+export default function DiagnoseUpdate({ id }: { id: string }) {
   const [series, setSeries] = useState<SeriesProps[]>([]);
   const [currentSeriesIndex, setCurrentSeriesIndex] = useState<number>(0);
   const [instants, setInstants] = useState<InstanceProps[]>([]);
   const [currentDiagnose, setCurrentDiagnose] = useState<string>();
-  const [textDiagnose, setTextDiagnose] = useState<string>(currentDiagnose || "");
+  const [textDiagnose, setTextDiagnose] = useState<string>(
+    currentDiagnose || ""
+  );
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const cancleHandle = () => navigate(-1);
+
   // const { id } = useParams();
   useEffect(() => {
     setLoading(true);
@@ -73,7 +83,7 @@ export default function DiagnoseUpdate({id}: {id: string}) {
         position: "bottom-right",
         richColors: true,
       });
-      cancleHandle();
+      window.location.reload();
     } catch (error) {
       toast.error("Update diagnose failed!", {
         duration: 2000,
@@ -143,16 +153,12 @@ export default function DiagnoseUpdate({id}: {id: string}) {
                     />
                   </button>
                 </DialogTrigger>
-                <DialogContent 
-  className="max-w-[90vw] max-h-[90vh] p-4 flex flex-col items-center justify-center overflow-auto no-scrollbar"
->
-              <DialogClose asChild>
-      <button
-        className="absolute right-4 top-4 rounded-full p-1 bg-gray-700 transition z-40"
-      >
-        <X className="h-4 w-4 text-white" />
-      </button>
-    </DialogClose>
+                <DialogContent className="max-w-[90vw] max-h-[90vh] p-4 flex flex-col items-center justify-center overflow-auto no-scrollbar">
+                  <DialogClose asChild>
+                    <button className="absolute right-4 top-4 rounded-full p-1 bg-gray-700 transition z-40">
+                      <X className="h-4 w-4 text-white" />
+                    </button>
+                  </DialogClose>
                   <div className="">
                     <DicomRender
                       sopInstanceUID={item.sopInstanceUID}
@@ -222,12 +228,12 @@ export default function DiagnoseUpdate({id}: {id: string}) {
                 />
               </div>
               <div className="flex flex-row gap-3 justify-end text-white">
-                <Button
-                  className="bg-red-600 hover:bg-red-600/75"
-                  onClick={cancleHandle}
-                >
-                  Cancel
-                </Button>
+                <DialogClose asChild>
+                  <Button className="bg-red-600 hover:bg-red-600/75">
+                    Cancel
+                  </Button>
+                </DialogClose>
+
                 <Button
                   className="bg-bg-secondary hover:bg-bg-secondary/75"
                   onClick={handleSubmit}

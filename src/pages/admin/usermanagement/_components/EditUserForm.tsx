@@ -27,7 +27,9 @@ export default function PatientDetailsDialog({ props }: { props: User }) {
       });
       return;
     }
+    console.log("input---------------",data);
     const res = await UpdateUser(data, props.id, token);
+    console.log("output---------------",res);
     if (res) {
       toast.success("User updated successfully!", {
         duration: 2000,
@@ -81,14 +83,12 @@ export default function PatientDetailsDialog({ props }: { props: User }) {
               {/* Password */}
               <div className="mb-4">
                 <label className="block mb-1 font-medium">
-                  Password <span className="text-red-500">*</span>
+                  Password <span className="text-secondary">(optional)</span>
                 </label>
                 <input
                   type="password"
-                  placeholder="Enter your new password"
-                  {...register("password", {
-                    required: "password is required",
-                  })}
+                  placeholder="Enter your new password (optional)"
+                  {...register("password")}
                   className="w-full  px-2 py-1  border border-gray-300 rounded outline-bg-secondary"
                 />
                 {errors.password && (

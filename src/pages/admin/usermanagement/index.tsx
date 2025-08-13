@@ -15,10 +15,11 @@ export default function Component() {
     const fetchUsers = async () => {
       try {
         const [studies] = await Promise.all([GetAllUsers()]);
-        const nonAdmins = studies.filter(
-          (user) => !user.roles.some((role) => role.name === "ROLE_ADMIN")
-        );
-        setUsersData(nonAdmins);
+        // const nonAdmins = studies.filter(
+        //   (user) => !user.roles.some((role) => role.name === "ROLE_ADMIN")
+        // );
+        // setUsersData(nonAdmins);
+        setUsersData(studies);
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -48,6 +49,7 @@ export default function Component() {
               placeholder="Search by name"
               value={formValues.userName}
               onChange={(value) => handleChange("userName", value.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               className="outline-bg-secondary pl-2"
             />
           </div>

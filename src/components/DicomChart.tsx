@@ -23,7 +23,6 @@ export default function DicomChart() {
   }, []);
   return (
     <div className="w-full h-96 p-4 bg-white rounded-lg shadow">
-      <h2 className="md:text-lg text-sm font-semibold mb-4">Số lượng Series & Study theo ngày</h2>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />

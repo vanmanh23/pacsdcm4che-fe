@@ -97,7 +97,7 @@ export default function Header({handleOpenNavbar}: NavbarProps) {
                   {userRoles.includes("ROLE_ADMIN") && (
                     <div className="flex flex-row items-center gap-1 p-2 hover:bg-slate-100 rounded-md outline-none text-menu-items/70">
                       <UserPlus size={18}/>
-                      <Link to="/auth/signup">Add account</Link>
+                      <Link to="/admin/add_account">Add account</Link>
                     </div>
                   )}
 

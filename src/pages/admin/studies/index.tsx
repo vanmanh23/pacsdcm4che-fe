@@ -24,10 +24,10 @@ const formSearchItems = [
     name: "patientName",
     typeinput: "text",
   },
-  {
-    name: "studyId",
-    typeinput: "text",
-  },
+  // {
+  //   name: "studyId",
+  //   typeinput: "text",
+  // },
   {
     name: "modality",
     typeinput: "text",

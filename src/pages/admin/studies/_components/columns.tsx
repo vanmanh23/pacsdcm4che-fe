@@ -8,7 +8,6 @@ import StudyDetailsDialog from "./StudyDetailsDialog";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
   DialogTrigger,
 } from "../../../../components/ui/dialog";
 import { Button } from "../../../../components/ui/button";
@@ -41,9 +40,6 @@ export const columns: ColumnDef<StudyProps>[] = [
     id: "InfoDetails",
     cell: ({ row }) => {
       return (
-        // <div>
-        //   <List />
-        // </div>
         <div>
           <StudyDetailsDialog props={row.original} />
         </div>
@@ -53,10 +49,6 @@ export const columns: ColumnDef<StudyProps>[] = [
   {
     accessorKey: "patientName",
     header: "Patient’s name",
-  },
-  {
-    accessorKey: "studyID",
-    header: "study ID",
   },
   {
     accessorKey: "modality",
@@ -73,6 +65,10 @@ export const columns: ColumnDef<StudyProps>[] = [
         </div>
       );
     },
+  },
+    {
+    accessorKey: "studyTime",
+    header: "Study Time",
   },
   {
     id: "status",
@@ -107,7 +103,6 @@ export const columns: ColumnDef<StudyProps>[] = [
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-[90vw] max-h-[90vh] p-4 flex flex-col items-center justify-center overflow-auto bg-white no-scrollbar">
-                <DialogHeader></DialogHeader>
                 <div className="">
                   <DiagnoseUpdate id={row.original.studyInstanceUID} />
                 </div>

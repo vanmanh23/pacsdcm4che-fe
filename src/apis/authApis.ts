@@ -21,6 +21,13 @@ export const SignIn = async (data: user) => {
     .catch((err) => console.log(err));
   return res;
 };
+export const SignUp = async (data: userProps) => {
+  const res = await axios
+    .post(`${url}/signup`, data)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+}
 export const GetUsernameFromJWT = async (token: string) => {
   const res = await axios
     .get(`${url}/getusername/${token}`)

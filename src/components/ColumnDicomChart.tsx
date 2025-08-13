@@ -23,8 +23,8 @@ export default function ColumnDicomChart() {
 
   return (
     <div className="w-full h-96 p-4 bg-white rounded-lg shadow">
-      <h2 className="md:text-lg text-sm font-semibold mb-4">
-        Số lượng Series & Study theo ngày
+      <h2 className="md:text-lg text-sm font-semibold mb-4 text-secondary">
+        The bar chart shows the quantity of studies and series
       </h2>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={data}>

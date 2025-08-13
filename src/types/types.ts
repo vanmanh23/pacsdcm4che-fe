@@ -4,6 +4,13 @@ export type PatientProps = {
     sex: string;
     patientBirthDate: Date;
 };
+export type PatientStudyProps = {
+    patientName: string;
+    patientID: string;
+    sex: string;
+    patientBirthDate: Date;
+    studies: StudyProps[];
+};
 
 export type StudyProps = {
   studyInstanceUID: string;

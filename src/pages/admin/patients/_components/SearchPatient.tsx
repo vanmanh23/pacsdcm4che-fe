@@ -42,6 +42,11 @@ export default function SearchPatient({
             type="text"
             placeholder="Search by name"
             onChange={(e) => patientNameValue(e)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                searchClick();
+              }
+            }}
             className="outline-bg-secondary  pl-2"
           />
         </div>
