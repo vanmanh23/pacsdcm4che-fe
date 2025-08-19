@@ -122,15 +122,12 @@ export const getInstanceImage = async (
 ) => {
   const res = await axios
     .get(
-      `${url}/studies/${studyUID}/series/${seriesUID}/instances/${instanceUID}/images`,
-      {
-        responseType: "blob",
-      }
+      `${url}/studies/${studyUID}/series/${seriesUID}/instances/${instanceUID}/images`
     )
     .then((res) => res.data)
     .catch((err) => console.log(err));
-  const urlImg = URL.createObjectURL(res);
-  return urlImg;
+  // const urlImg = URL.createObjectURL(res);
+  return res;
 };
 export const getPatients = async (token: string): Promise<PatientProps[]> => {
   const res = await axios

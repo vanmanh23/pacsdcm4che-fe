@@ -1,7 +1,8 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./_components/Navbar";
 import Header from "./_components/Header";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export interface NavbarProps {
   isOpenNavbar?: boolean;
@@ -10,6 +11,16 @@ export interface NavbarProps {
 
 export default function Component() {
   const [hidenNavbar, setHidenNavbar] = useState<boolean>(false);
+  const naviagate = useNavigate();
+  const token = localStorage.getItem("token");
+  if (token === null) {
+    toast.error("You are not logged in!", {
+      duration: 2000,
+      position: "bottom-right",
+      richColors: true,
+    });
+    naviagate("/");
+  }
   const handleHidenNavbar = () => {
     setHidenNavbar(!hidenNavbar);
   };

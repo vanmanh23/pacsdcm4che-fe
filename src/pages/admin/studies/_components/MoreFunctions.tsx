@@ -1,6 +1,7 @@
 import { Upload } from "lucide-react";
 import { uploadDicomImg } from "../../../../apis/dicomApis";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 type MoreInfoProps = {
   count: number;
@@ -8,11 +9,13 @@ type MoreInfoProps = {
 };
 
 export default function MoreFunctions({ count, size }: MoreInfoProps) {
+  const navigate = useNavigate();
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
   try {
     const result = await uploadDicomImg(e);
     toast.success("Upload Dicom images successfully!", { duration: 2000, position: "bottom-right",richColors: true }, );
     console.log("result-------: ", result);
+    navigate("/admin");
   } catch(error) {
     toast.error(`Upload Dicom images failed! ${error}`, { duration: 2000, position: "bottom-right", richColors: true }, );
   }
