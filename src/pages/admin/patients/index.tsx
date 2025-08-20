@@ -5,6 +5,9 @@ import { toast } from "sonner";
 import SearchPatient from "./_components/SearchPatient";
 import { Skeleton } from "../../../components/ui/skeleton";
 import PatientsRender from "./_components/PatientsRender";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../store/store";
+import { setOption } from "../../../features/navbarsection/navbarSection";
 
 export default function Component() {
   const [patients, setPatients] = useState<PatientProps[]>([]);
@@ -23,6 +26,7 @@ export default function Component() {
   const sexValue = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFormValues({ ...formValues, sex: e.target.value });
   };
+  const dispatch = useDispatch<AppDispatch>();
   const handleSearch = () => {
     setSearchValues(formValues);
   };
@@ -54,6 +58,7 @@ export default function Component() {
     } finally {
       setLoading(false);
     }
+    dispatch(setOption("Patients"));
   }, []);
   return (
     <div className="flex flex-col gap-3 px-6">
@@ -78,11 +83,6 @@ export default function Component() {
             ))}
           </div>
         ) : (
-          // <PatientTable
-          //   columns={columns}
-          //   data={patients}
-          //   formValues={searchValues}
-          // />
           <PatientsRender patientName={searchValues.patientName} sex={searchValues.sex}/>
         )}
       </div>

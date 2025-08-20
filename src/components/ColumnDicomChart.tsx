@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ComposedChart,
   Line,
@@ -8,21 +8,22 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from "recharts";
+import { getStudies } from "../apis/dicomApis";
 
 export default function ColumnDicomChart() {
-  // Fake data
-  const data = [
-    { studyDate: "2025-08-01", studyCount: 5, seriesCount: 12 },
-    { studyDate: "2025-08-02", studyCount: 8, seriesCount: 20 },
-    { studyDate: "2025-08-03", studyCount: 4, seriesCount: 10 },
-    { studyDate: "2025-08-04", studyCount: 10, seriesCount: 15 },
-    { studyDate: "2025-08-05", studyCount: 6, seriesCount: 8 }
-  ];
+  const [data, setData] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getStudies();
+      setData(res);
+    };
+    fetchData();
+  }, []);
   return (
-    <div className="w-full h-96 p-4 bg-white rounded-lg shadow">
+    <div className="w-full h-96 bg-white rounded-lg shadow">
       <h2 className="md:text-lg text-sm font-semibold mb-4 text-secondary">
         The bar chart shows the quantity of studies and series
       </h2>
@@ -30,18 +31,21 @@ export default function ColumnDicomChart() {
         <ComposedChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="studyDate" />
-          <YAxis />
+          <YAxis dataKey="numberOfInstances" />
           <Tooltip />
           <Legend />
-          {/* Biểu đồ cột */}
-          <Bar dataKey="studyCount" barSize={40} fill="#8884d8" name="Số Study" />
-          {/* Biểu đồ đường */}
+          <Bar
+            dataKey="studyDate"
+            barSize={40}
+            fill="#8884d8"
+            name="studyDate"
+          />
           <Line
             type="monotone"
-            dataKey="seriesCount"
+            dataKey="numberOfInstances"
             stroke="#0bef1a"
             strokeWidth={2}
-            name="Số Series"
+            name="numberOfInstances"
           />
         </ComposedChart>
       </ResponsiveContainer>

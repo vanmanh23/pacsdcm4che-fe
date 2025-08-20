@@ -4,6 +4,9 @@ import UserTable from "./_components/UserTable";
 import { GetAllUsers } from "../../../apis/authApis";
 import { ListFilter, Search } from "lucide-react";
 import AddAccount from "./_components/AddAccount";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../store/store";
+import { setOption } from "../../../features/navbarsection/navbarSection";
 
 export default function Component() {
   const [usersData, setUsersData] = useState<User[]>([]);
@@ -11,20 +14,18 @@ export default function Component() {
   const [submitSearch, setSubmitSearch] = useState<{ [key: string]: string }>(
     {}
   );
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const [studies] = await Promise.all([GetAllUsers()]);
-        // const nonAdmins = studies.filter(
-        //   (user) => !user.roles.some((role) => role.name === "ROLE_ADMIN")
-        // );
-        // setUsersData(nonAdmins);
         setUsersData(studies);
       } catch (error) {
         console.error("Error fetching data", error);
       }
     };
     fetchUsers();
+    dispatch(setOption("User management"));
   }, []);
   const handleChange = (field: string, value: string) => {
     setFormValues((prev) => ({ ...prev, [field]: value }));

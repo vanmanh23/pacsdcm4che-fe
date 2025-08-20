@@ -17,12 +17,10 @@ import {
 } from "../../../../components/ui/dialog";
 import { Skeleton } from "../../../../components/ui/skeleton";
 import { Button } from "../../../../components/ui/button";
-import DicomCarousel from "./DicomCarousel";
 
 export default function DiagnoseUpdate({ id }: { id: string }) {
   const [series, setSeries] = useState<SeriesProps[]>([]);
-  // const [currentSeriesIndex, setCurrentSeriesIndex] = useState<number>(0);
-  const [currentInstanceIndex, setCurrentInstanceIndex] = useState<number>(0);
+  const [currentSeriesIndex, setCurrentSeriesIndex] = useState<number>(0);
   const [instants, setInstants] = useState<InstanceProps[]>([]);
   const [currentDiagnose, setCurrentDiagnose] = useState<string>();
   const [textDiagnose, setTextDiagnose] = useState<string>(
@@ -76,7 +74,7 @@ export default function DiagnoseUpdate({ id }: { id: string }) {
   const handleSubmit = async () => {
     try {
       await updateDiagnose({
-        studyId: instants[currentInstanceIndex].studyInstanceUID,
+        studyId: series[currentSeriesIndex].studyInstanceUID,
         description: textDiagnose,
       });
       toast.success("Update diagnose successfully!", {
@@ -94,46 +92,57 @@ export default function DiagnoseUpdate({ id }: { id: string }) {
       console.log(error);
     }
   };
-  console.log(instants);
+  console.log("series: ", series);
   return (
     <div className="flex flex-col w-full h-full pt-24 p-2 overflow-y-auto max-h-screen no-scrollbar">
       <div className="flex flex-row w-full h-full">
         <div className="flex flex-col w-1/12 h-full border-r border-gray-100">
-          {instants.map((item, index) => {
-            // const firstInstance = item.instances?.[0];
-            // if (!firstInstance) return null;
+          {series.map((item, index) => {
+            const firstInstance = item.instances?.[0];
+            if (!firstInstance) return null;
             return (
               <div
                 key={index}
                 className="flex p-1 w-fit h-fit cursor-pointer"
-                onClick={() => setCurrentInstanceIndex(index)}
+                onClick={() => setCurrentSeriesIndex(index)}
               >
                 <div
                   className={`p-1  ${
-                    currentInstanceIndex === index
+                    currentSeriesIndex === index
                       ? "outline-bg-secondary outline-4 outline"
                       : ""
                   } `}
                 >
-                  <img src={`http://localhost:8080/dcm4chee-arc/aets/DCM4CHEE/rs/studies/${item.studyInstanceUID}/series/${item.seriesInstanceUID}/instances/${item.sopInstanceUID}/rendered`} alt="" />
+                  <DicomRender
+                    sopInstanceUID={firstInstance.sopInstanceUID}
+                    studyInstanceUID={firstInstance.studyInstanceUID}
+                    seriesInstanceUID={firstInstance.seriesInstanceUID}
+                  />
                 </div>
               </div>
             );
           })}
         </div>
         <div
-          className={`w-7/12 h-full grid `}
+          className={`w-7/12 h-full grid ${
+            series[currentSeriesIndex]?.instances?.length === 1
+              ? "grid-cols-1"
+              : "grid-cols-3"
+          }`}
         >
+          {series[currentSeriesIndex]?.instances?.map((item, index) => (
             <div
-              className="p-1 w-fit h-fit overflow-y-scroll "
+              key={index}
+              className="p-1 w-fit h-fit "
+              onClick={() => console.log(item)}
             >
               <Dialog>
                 <DialogTrigger asChild>
                   <button>
                     <DicomRender
-                      sopInstanceUID={instants[currentInstanceIndex]?.sopInstanceUID}
-                      studyInstanceUID={instants[currentInstanceIndex]?.studyInstanceUID}
-                      seriesInstanceUID={instants[currentInstanceIndex]?.seriesInstanceUID}
+                      sopInstanceUID={item.sopInstanceUID}
+                      studyInstanceUID={item.studyInstanceUID}
+                      seriesInstanceUID={item.seriesInstanceUID}
                     />
                   </button>
                 </DialogTrigger>
@@ -144,21 +153,16 @@ export default function DiagnoseUpdate({ id }: { id: string }) {
                     </button>
                   </DialogClose>
                   <div className="">
-                    {/* <DicomRender
-                      sopInstanceUID={instants[currentInstanceIndex]?.sopInstanceUID}
-                      studyInstanceUID={instants[currentInstanceIndex]?.studyInstanceUID}
-                      seriesInstanceUID={instants[currentInstanceIndex]?.seriesInstanceUID}
-                    /> */}
-                    <DicomCarousel
-                      sopInstanceUID={instants[currentInstanceIndex]?.sopInstanceUID}
-                      studyInstanceUID={instants[currentInstanceIndex]?.studyInstanceUID}
-                      seriesInstanceUID={instants[currentInstanceIndex]?.seriesInstanceUID}
+                    <DicomRender
+                      sopInstanceUID={item.sopInstanceUID}
+                      studyInstanceUID={item.studyInstanceUID}
+                      seriesInstanceUID={item.seriesInstanceUID}
                     />
                   </div>
                 </DialogContent>
               </Dialog>
             </div>
-          {/* ))} */}
+          ))}
         </div>
         {loading ? (
           <div className="flex flex-col gap-3 h-full max-w-4/12 border-l border-gray-100 p-3">
@@ -180,27 +184,27 @@ export default function DiagnoseUpdate({ id }: { id: string }) {
                 <span className="font-semibold text-sm">
                   Series Instance UID:
                 </span>{" "}
-                {instants[currentInstanceIndex]?.seriesInstanceUID || "-"}{" "}
+                {series[currentSeriesIndex]?.seriesInstanceUID || "-"}{" "}
               </p>
               <p className="truncate flex flex-col text-xs">
-                <span className="font-semibold text-sm">sopInstanceUID:</span>{" "}
-                {instants[currentInstanceIndex]?.sopInstanceUID || "-"}
+                <span className="font-semibold text-sm">Description:</span>{" "}
+                {series[currentSeriesIndex]?.seriesDescription || "-"}
               </p>
               <p className="truncate flex flex-col text-xs">
                 <span className="font-semibold text-sm">
                   Number of instances:
                 </span>{" "}
-                {instants[currentInstanceIndex]?.instanceNumber || "-"}
+                {series[currentSeriesIndex]?.numberOfInstances || "-"}
               </p>
               <p className="truncate flex flex-col text-xs">
-                <span className="font-semibold text-sm">referencedSopInstanceUID:</span>{" "}
-                {instants[currentInstanceIndex]?.referencedSopInstanceUID || "-"}
+                <span className="font-semibold text-sm">Modality:</span>{" "}
+                {series[currentSeriesIndex]?.modality || "-"}
               </p>
               <p className="truncate flex flex-col text-xs">
                 <span className="font-semibold text-sm">
                   Study Instance UID:
                 </span>{" "}
-                {instants[currentInstanceIndex]?.studyInstanceUID || "-"}
+                {series[currentSeriesIndex]?.studyInstanceUID || "-"}
               </p>
             </div>
             <div className="border-b border-gray-200 w-full" />

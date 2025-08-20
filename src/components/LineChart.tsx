@@ -20,7 +20,7 @@ const data = [
 
 export default function MyChart() {
   return (
-    <div className="w-full h-96 p-4 bg-white rounded shadow">
+    <div className="w-full h-96 bg-white rounded shadow overflow-x-hidden">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />

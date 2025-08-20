@@ -66,9 +66,18 @@ export const columns: ColumnDef<StudyProps>[] = [
       );
     },
   },
-    {
+  {
     accessorKey: "studyTime",
     header: "Study Time",
+    cell: ({ row }) => {
+      return (
+        <div className="p-1 hover:bg-gray-100 rounded-md text-secondary">
+          {row.original.studyTime
+            ? new Date(row.original.studyTime).toLocaleTimeString("vi-VN")
+            : "No study time available"}
+        </div>
+      );
+    },
   },
   {
     id: "status",
@@ -77,11 +86,11 @@ export const columns: ColumnDef<StudyProps>[] = [
     cell: ({ row }) => {
       return row.original.diagnose?.description ? (
         <p className="px-2 py-1 bg-green-500 rounded-full w-fit text-white">
-          Đã chuẩn đoán
+          Diagnosed
         </p>
       ) : (
         <p className="px-2 py-1 bg-red-500 rounded-full w-fit text-white">
-          Chưa chuẩn đoán
+          not diagnosed yet
         </p>
       );
     },

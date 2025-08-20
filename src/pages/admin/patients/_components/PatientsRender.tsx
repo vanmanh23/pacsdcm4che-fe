@@ -119,7 +119,7 @@ export default function PatientsRender({ patientName, sex }: PatientsProps) {
             <React.Fragment key={index}>
               <tr
                 key={index}
-                className={`bg-gray-100 overflow-hidden text-xs ${
+                className={`overflow-hidden text-xs h-11 ${
                   headTableforPatients.isKey === item.patientID
                     ? "bg-gray-300"
                     : ""

@@ -29,7 +29,7 @@ export default function StudyTable<TData, TValue>({
   formValues,
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
+  const [rowClicked, setRowClicked] = useState("");
   const table = useReactTable({
     data,
     columns,
@@ -76,7 +76,9 @@ export default function StudyTable<TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
+                onClick={() => setRowClicked(row.id)}
                 data-state={row.getIsSelected() && "selected"}
+                className={` ${row.id === rowClicked ? "bg-gray-100" : ""}`}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id} className="text-xs">

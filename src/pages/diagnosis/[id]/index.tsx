@@ -145,11 +145,6 @@ export default function Component() {
               className="p-1 w-fit h-fit "
               onClick={() => console.log(item)}
             >
-              {/* <DicomRender
-                sopInstanceUID={item.sopInstanceUID}
-                studyInstanceUID={item.studyInstanceUID}
-                seriesInstanceUID={item.seriesInstanceUID}
-              /> */}
               <Dialog>
                 <DialogTrigger asChild>
                   <button>
@@ -161,7 +156,7 @@ export default function Component() {
                   </button>
                 </DialogTrigger>
                 <DialogContent 
-  className="max-w-[90vw] max-h-[90vh] p-4 flex flex-col items-center justify-center overflow-auto no-scrollbar"
+  className="max-w-full max-h-full p-4 flex flex-col items-center justify-center overflow-auto no-scrollbar"
 >
                   <DialogHeader>
                     <DialogClose color="#ffff" className=""/>

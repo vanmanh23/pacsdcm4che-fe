@@ -22,16 +22,16 @@ export default function DicomChart() {
     fetchData();
   }, []);
   return (
-    <div className="w-full h-96 p-4 bg-white rounded-lg shadow">
+    <div className="w-full h-96 bg-white rounded-lg shadow">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="studyID" />
-          <YAxis />
+          <XAxis dataKey="studyDate" />
+          <YAxis dataKey="numberOfInstances" />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="numberOfSeries" stroke="#8884d8" name="Số Study" />
-          <Line type="monotone" dataKey="numberOfInstances" stroke="#fa0064" name="Số Series" />
+          <Line type="monotone" dataKey="numberOfInstances" stroke="#8884d8" name="numberOfInstances" />
+          <Line type="monotone" dataKey="studyInstanceUID" stroke="#fa0064" name="Số Series" />
         </LineChart>
       </ResponsiveContainer>
     </div>

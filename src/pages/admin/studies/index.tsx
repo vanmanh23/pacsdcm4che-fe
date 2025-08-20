@@ -18,30 +18,9 @@ import { mergeStudiesDiagnoseData } from "../../../utils/mergeStudiesDiagnoseDat
 import type { StudyProps } from "../../../types/types";
 import { X } from "lucide-react";
 import { Skeleton } from "../../../components/ui/skeleton";
+import { setOption } from "../../../features/navbarsection/navbarSection";
+import { formSearchItems } from "../../../constants";
 
-const formSearchItems = [
-  {
-    name: "patientName",
-    typeinput: "text",
-  },
-  // {
-  //   name: "studyId",
-  //   typeinput: "text",
-  // },
-  {
-    name: "modality",
-    typeinput: "text",
-  },
-  {
-    name: "From_date",
-    typeinput: "date",
-  },
-  {
-    name: "To_date",
-    typeinput: "date",
-  },
-];
-//
 export default function Component() {
   const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
   const [submitSearch, setSubmitSearch] = useState<{ [key: string]: string }>(
@@ -100,6 +79,7 @@ export default function Component() {
     } else {
       getUserFromJWT(jwt);
     }
+    dispatch(setOption("Studies"));
   }, []);
   useEffect(() => {
     const fromDate = new Date(submitSearch.From_date);

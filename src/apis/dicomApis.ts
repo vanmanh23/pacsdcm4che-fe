@@ -115,20 +115,6 @@ export const getInstances = async (
     .catch((err) => console.log(err));
   return res;
 };
-export const getInstanceImage = async (
-  instanceUID: string,
-  studyUID: string,
-  seriesUID: string
-) => {
-  const res = await axios
-    .get(
-      `${url}/studies/${studyUID}/series/${seriesUID}/instances/${instanceUID}/images`
-    )
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
-  // const urlImg = URL.createObjectURL(res);
-  return res;
-};
 export const getPatients = async (token: string): Promise<PatientProps[]> => {
   const res = await axios
     .get(`${url}/patients`, {
